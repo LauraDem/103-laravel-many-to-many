@@ -50,7 +50,7 @@
         </div>
 
         <div class="col-12 mb-4">
-            <div class="form-check @error ('technologies') is-invalid @enderror">
+            <div class="row @error ('technologies') is-invalid @enderror">
 
                 @foreach ($technologies as $technology)
                 <div class="col-2">

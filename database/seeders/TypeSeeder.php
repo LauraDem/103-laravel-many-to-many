@@ -4,10 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
-use Faker\Generator;
-
 use App\Models\Type;
+
+use Faker\Generator as Faker;
+
 
 class TypeSeeder extends Seeder
 {
@@ -16,17 +16,16 @@ class TypeSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Generator $faker)
+    public function run(Faker $faker)
     {
-        $_types = [
-            "frontend", "backend", "fullstack"
-        ];
+        $_types = ["frontend", "backend", "fullstack"];
 
         foreach ($_types as $_type) {
+            
             $type = new Type();
-            $type->label = $_type;
             $type->color = $faker->hexColor();
+            $type->label = $_type;
             $type->save();
+        }
     }
-}
 }

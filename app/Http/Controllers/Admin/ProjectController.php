@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Models\Technology;
 use App\Models\Type;
 use App\Models\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -55,7 +57,9 @@ class ProjectController extends Controller
         $project->slug = Str::slug($project->name);
         $project->save();
 
+        if(Arr::exists($data,"technologies")) {
         $project->technologies()->attach($data['technologies']);
+        }
 
         return redirect()->route("admin.projects.show", $project);
 
@@ -82,7 +86,11 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view("admin.projects.edit", compact("project", "types"));
+        $technologies = Type::all();
+
+        $project->technologies;
+
+        return view("admin.projects.edit", compact("project", "types", "technologies"));
     }
 
     /**
@@ -96,7 +104,7 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
-        $project->fill( $data );
+        $project->fill($data);
         $project->slug = Str::slug($project->name);
         $project->save();
 

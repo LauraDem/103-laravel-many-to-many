@@ -30,6 +30,7 @@
 
 
 
+
         <div class="col-12">
             <label for="name" class="form-label">Nome</label>
             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') ?? $project->name }}" >
