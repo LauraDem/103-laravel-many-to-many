@@ -17,11 +17,11 @@ class TechnologySeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        $technology = ["html", "css","bootstrap", "sass", "js", "vue", "php", "mysql", "laravel", "markdown"];
+        $_technology = ["html", "css","bootstrap", "sass", "js", "vue", "php", "mysql", "laravel", "markdown"];
 
-        foreach ($technology as $technology) {
+        foreach ($_technology as $_technology) {
         $technology = new Technology();
-        $technology->label = $technology;
+        $technology->label = $_technology;
         $technology->color = $faker->hexColor();
         $technology->save();
 

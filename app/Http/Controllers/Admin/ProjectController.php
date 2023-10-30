@@ -49,12 +49,7 @@ class ProjectController extends Controller
         $data = $request->validated();
 
         $project = new Project();
-
-        // $project->name = $data["name"];
-        // $project->content = $data["content"];
-
         $project->fill( $data );
-
         $project->slug = Str::slug($project->name);
         $project->save();
 
