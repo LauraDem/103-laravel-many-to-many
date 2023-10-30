@@ -40,18 +40,32 @@
 
 
         
-        <div class="col-12">
+        <div class="col-12 mb-4">
             <label for="type_id" class="form-label">Categoria</label>
             <select name="type_id" id="type_id" class="form-select">
-                <option value="">Nessun Tipo</option>
                 @foreach ($types as $type)
-                    <option value="{{$type->id}}">{{$type->label}}</option>
+                    <option value="{{$type->id}}" @if (old('type_id') == $type->id) selcted @endif>{{$type->label}}</option>
+                @endforeach
+            </select>   
+        </div>
+
+        <div class="col-12 mb-4">
+            <div class="form-check @error ('technologies') is-invalid @enderror">
+
+                @foreach ($technologies as $technology)
+                <div class="col-2">
+                    <input 
+                    type="checkbox" 
+                    name="technologies[]" 
+                    id="technologies-{{$technology->id}}" 
+                    value="{{ $technology->id }}" 
+                    class="form-check-control"
+                     @if (in_array( $technology->id, old('technologies') ?? [])) checked @endif>
+                    <label for="technologies-{{$technology->id}}">{{ $technology->label }}</label>
+                </div>
                 @endforeach
 
-
-
-            </select>
-      
+            </div>
         </div>
 
 
