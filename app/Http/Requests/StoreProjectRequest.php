@@ -31,8 +31,9 @@ class StoreProjectRequest extends FormRequest
                 Rule::unique("projects"),
             ],
 
-            "content"=> ["required","string"],
-            "type_id"=> [ "nullable", "exists:types,id"]
+            "content" => ["required","string"],
+            "technologies" => ["nullable","exists:technologies,id"],
+            'type_id' => [ 'nullable', 'exists:types,id'],
         ];
     }
 
@@ -47,7 +48,9 @@ class StoreProjectRequest extends FormRequest
             "content.required"=> "Il contenuto è obbligatorio",
             "content.string"=> "Il contenuto deve essere una stringa",
 
-            "type_id.exists"=> "Il tipo inserito non è valido"
+            "technologies.exists" => "La tec inserita non è valida",
+            "type_id.exists"=> "Il tipo inserito non è valido",
+
         ];
 }
 }
