@@ -60,7 +60,7 @@
 
            
         <div class="col-12">
-            <label for="type_id" class="form-label">Categoria</label>
+            <label for="type_id" class="form-label">Tipo</label>
             <select name="type_id" id="type_id" class="form-select">
                 <option value="">Nessun Tipo</option>
                 @foreach ($types as $type)
@@ -78,7 +78,7 @@
                     <input 
                     type="checkbox" 
                     name="technologies[]" 
-                    id="technologies-{{$technology->id}}" 
+                    id="technology-{{$technology->id}}" 
                     value="{{ $technology->id }}" 
                     class="form-check-control"
                      @if (in_array( $technology->id, old('technologies') ?? ['technology_ids'])) checked @endif>
