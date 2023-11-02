@@ -6,6 +6,8 @@
 
 @section('content')
 
+
+
 <div class="container mt-5">
     <h1>Modifica Progetto</h1>
     <a href="{{route('admin.projects.index')}}" class="btn btn-outline-primary mt-3"><i class="fa-solid fa-arrow-left"></i> Torna alla lista</a>
@@ -24,7 +26,7 @@
     </div>
     @endif
 
-    <form method="POST" action="{{route('admin.projects.update', $project)}}" class="row">
+    <form method="POST" action="{{route('admin.projects.update', $project)}}" enctype="multipart/form-data" class="row">
         @method('PATCH')
         @csrf
 
@@ -36,6 +38,26 @@
             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') ?? $project->name }}" >
         </div>
 
+        <div class="col-12">
+
+            <div class="row">
+                <div class="col-8">                
+                <label for="cover_image" class="form-label">Cover image</label>
+                <input type="file" name="cover_image" id="cover_image" class="form-control @error('cover_image') is-invalid @enderror" value="{{old('cover_image')}}">
+                @error('cover_image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+                </div>
+            </div>
+            <div class="col-2">
+                <img src="{{ asset('/storage/' . $project->cover_image) }}" class="img-fluid">
+            </div>
+
+        </div>
+
+
            
         <div class="col-12">
             <label for="type_id" class="form-label">Categoria</label>
@@ -46,6 +68,27 @@
                 @endforeach
             </select>     
         </div>
+
+
+        <div class="col-12 mb-4">
+            <div class="row @error ('technologies') is-invalid @enderror">
+
+                @foreach ($technologies as $technology)
+                <div class="col-2">
+                    <input 
+                    type="checkbox" 
+                    name="technologies[]" 
+                    id="technologies-{{$technology->id}}" 
+                    value="{{ $technology->id }}" 
+                    class="form-check-control"
+                     @if (in_array( $technology->id, old('technologies') ?? ['technology_ids'])) checked @endif>
+                    <label for="technologies-{{$technology->id}}">{{ $technology->label }}</label>
+                </div>
+                @endforeach
+
+            </div>
+        </div>
+
 
 
         <div class="col-12">

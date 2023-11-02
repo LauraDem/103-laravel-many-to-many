@@ -25,31 +25,31 @@ class StoreProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"=> [
-                "required",
-                "string",
-                Rule::unique("projects"),
-            ],
-
-            "content" => ["required","string"],
-            "technologies" => ["nullable","exists:technologies,id"],
+            'name'=> [ 'required', 'string', Rule::unique('projects')],
+            'cover_image' => ['nullable', 'image', 'max:900' ],
+            'content' => ['required','string'],
             'type_id' => [ 'nullable', 'exists:types,id'],
+            'technologies' => ['nullable','exists:technologies,id'],
         ];
     }
 
     public function messages()
     {
         return [
-            "name.required"=> "Il nome è obbligatorio",
-            "name.string"=> "Il nome deve essere una stringa",
+            'name.required'=> 'Il nome è obbligatorio',
+            'name.string'=> 'Il nome deve essere una stringa',
+
+            'cover_image.image'=> 'Il file caricato deve essere un\'immagine',
+            'cover_image.max'=> 'L\'immagine deve essere massimo 900KB',
+
             
 
 
-            "content.required"=> "Il contenuto è obbligatorio",
-            "content.string"=> "Il contenuto deve essere una stringa",
+            'content.required'=> 'Il contenuto è obbligatorio',
+            'content.string'=> 'Il contenuto deve essere una stringa',
 
-            "technologies.exists" => "La tec inserita non è valida",
-            "type_id.exists"=> "Il tipo inserito non è valido",
+            'type_id.exists'=> 'Il tipo inserito non è valido',
+            'technologies.exists' => 'La tec inserita non è valida',
 
         ];
 }

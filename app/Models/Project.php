@@ -26,6 +26,11 @@ class Project extends Model
         return $this->type ? " <span class='badge' style='background-color: {$this->type->color}'>{$this->type->label}</span>": 'Uncategorized';
 
 }
+public function getTecBadge() {
+
+    return $this->technology ? " <span class='badge' style='background-color: {$this->technology->color}'>{$this->technology->label}</span>": 'Uncategorized';
+
+}
 
     public function getAbstract($chars = 50) {
         return strlen($this->content) > $chars ? substr($this->content,0, $chars) . "..." : $this->content;

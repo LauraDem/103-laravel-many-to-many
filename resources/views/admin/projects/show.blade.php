@@ -12,34 +12,52 @@
     <a href="{{route('admin.projects.edit', $project)}}" class="btn btn-outline-primary mt-3"><i class="fa-solid fa-pencil text-warning"></i> Modifica</a>
     <hr>
     <div class="row g-5 mt-3">
-        <div class="col-4">
-            <p>
-                <strong>Categoria</strong>
-                {!! $project->getTypeBadge() !!}
-            </p>
+
+        <div class="col-3">
+            <img src="{{ asset('/storage/' . $project->cover_image) }}" class="img-fluid">
+        </div>
+
+        <div class="col-8">
+            
+            <div class="row">
+                    <div class="col-6">
+                        <p>
+                            <strong>Tec</strong>
+                            {!! $project->getTecBadge() !!}
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p>
+                            <strong>Categoria</strong>
+                            {!! $project->getTypeBadge() !!}
+                        </p>
+                    </div>
+            
+            
+                    <div class="col-6">
+                        <p>
+                            <strong>Slug</strong>
+                            {{ $project->slug }}
+                        </p>
+                    </div>
+            
+                    <div class="col-6">
+                        <p>
+                            <strong>Created at</strong>
+                            {{ $project->created_at }}
+                        </p>
+                    </div>
+            
+                    <div class="col-6">
+                        <p>
+                            <strong>Updated at</strong>
+                            {{ $project->updated_at }}
+                        </p>
+                    </div>
+                </div>
         </div>
 
 
-        <div class="col-4">
-            <p>
-                <strong>Slug</strong>
-                {{ $project->slug }}
-            </p>
-        </div>
-
-        <div class="col-4">
-            <p>
-                <strong>Created at</strong>
-                {{ $project->created_at }}
-            </p>
-        </div>
-
-        <div class="col-4">
-            <p>
-                <strong>Updated at</strong>
-                {{ $project->updated_at }}
-            </p>
-        </div>
 
         <div class="col-12">
             <p>

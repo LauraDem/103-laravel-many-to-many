@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+
 class UpdateProjectRequest extends FormRequest
 {
     /**
@@ -27,27 +28,38 @@ class UpdateProjectRequest extends FormRequest
 
     {
         return [
-            "name"=> [
-                "required",
-                "string", 
-                "unique:projects,id",
-                Rule::unique("projects")->ignore($this->project_id),
+            'name'=> [
+                'required',
+                'string',
+                Rule::unique('projects')->ignore($this->project_id),
             ],
+            'cover_image' => ['nullable', 'image', 'max:900' ],
 
-            "content"=> ["required","string"],
-        ];
+
+            'content'=> ['required','string'],
+            'type_id' => [ 'nullable', 'exists:types,id'],
+            'technologies' => ['nullable','exists:technologies,id'],
+            ];
     }
 
     public function messages()
     {
         return [
-            "name.required"=> "Il nome è obbligatorio",
-            "name.string"=> "Il nome deve essere una stringa",
-            "name.unique"=> "Esiste già un progetto con questo nome",
+            'name.required'=> 'Il nome è obbligatorio',
+            'name.string'=> 'Il nome deve essere una stringa',
+            
+
+            
+            'cover_image.image'=> 'Il file caricato deve essere un\'immagine',
+            'cover_image.max'=> 'L\'immagine deve essere massimo 900KB',
 
 
-            "content.required"=> "Il contenuto è obbligatorio",
-            "content.string"=> "Il contenuto deve essere una stringa",
+
+            'content.required'=> 'Il contenuto è obbligatorio',
+            'content.string'=> 'Il contenuto deve essere una stringa',
+
+            'type_id.exists'=> 'Il tipo inserito non è valido',
+            'technologies.exists' => 'La tec inserita non è valida',
         ];
 }
 }

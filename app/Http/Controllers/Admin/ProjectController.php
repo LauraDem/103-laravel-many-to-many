@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-
-use App\Models\Technology;
-use App\Models\Type;
-use App\Models\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
+use App\Models\Technology;
+use App\Models\Type;
+use App\Models\Project;
+
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Facades\Storage;
+
+
 
 
 class ProjectController extends Controller
@@ -50,15 +53,25 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $data = $request->validated();
+        $data=$request->validated();
 
         $project = new Project();
-        $project->fill( $data );
+        $project->fill($data);
         $project->slug = Str::slug($project->name);
+        
+        if ($request->hasFile("cover_image")) {
+        $cover_image_path = Storage::put('uploads/projects/cover_image', $data['cover_image']);
+        $project->cover_image = $cover_image_path;
+        }
+        
         $project->save();
-
-        if(Arr::exists($data,"technologies")) {
+        
+        
+        
+        
+        if (Arr::exists( $data,"technologies")) {
         $project->technologies()->attach($data['technologies']);
+
         }
 
         return redirect()->route("admin.projects.show", $project);
@@ -86,11 +99,11 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        $technologies = Type::all();
+        $technologies = Technology::all();
+        $technology_ids = $project->technologies->pluck("id");
+        // $technology_ids = $project->technologies()->pluck("id")->toArray();
 
-        $project->technologies;
-
-        return view("admin.projects.edit", compact("project", "types", "technologies"));
+        return view("admin.projects.edit", compact("project", "types", "technologies", "technology_ids"));
     }
 
     /**
@@ -106,7 +119,25 @@ class ProjectController extends Controller
 
         $project->fill($data);
         $project->slug = Str::slug($project->name);
+
+
+ 
+        if ($request->hasFile("cover_image")) {
+            if ($project->cover_image) {
+                Storage::delete($project->cover_image);
+            }
+
+            $cover_image_path = Storage::put('uploads/projects/cover_image', $data['cover_image']);
+            $project->cover_image = $cover_image_path;
+            }
+ 
         $project->save();
+
+        if(Arr::exists($data,"technologies")) {
+            $project->technologies()->sync($data['technologies']);
+            } else { 
+                $project->technologies()->detach();
+            }
 
         return redirect()->route("admin.projects.show", $project);
     }
@@ -122,4 +153,7 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route("admin.projects.index");
     }
+
+
+
 }

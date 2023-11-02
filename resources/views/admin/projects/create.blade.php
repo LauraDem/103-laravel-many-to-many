@@ -22,9 +22,11 @@
     </div>
     @endif
 
-    <form method="POST" action="{{route('admin.projects.store')}}" class="row">
+    <form method="POST" action="{{route('admin.projects.store')}}" class="row" enctype="multipart/form-data">
         @method('POST')
         @csrf
+
+        
 
 
 
@@ -32,6 +34,17 @@
             <label for="name" class="form-label">Nome</label>
             <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}">
             @error('name')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+
+
+        <div class="col-12">
+            <label for="cover_image" class="form-label">Cover image</label>
+            <input type="file" name="cover_image" id="cover_image" class="form-control @error('cover_image') is-invalid @enderror" value="{{old('cover_image')}}">
+            @error('cover_image')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
