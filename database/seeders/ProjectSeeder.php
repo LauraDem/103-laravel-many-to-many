@@ -35,9 +35,9 @@ class ProjectSeeder extends Seeder
             $project->content = $faker->paragraphs(3, true);
             $project->slug = Str::slug($project->name);
             
-            $project->technologies()->attach($faker->randomElements($technology_ids, rand(0,3)));
-            
             $project->save();
-    }
+            
+            $project->technologies()->attach($faker->randomElements($technology_ids, rand(0,3)));
+        }
 }
 }

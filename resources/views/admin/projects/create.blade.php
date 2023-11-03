@@ -73,7 +73,7 @@
                     id="technologies-{{$technology->id}}" 
                     value="{{ $technology->id }}" 
                     class="form-check-control"
-                     @if (in_array( $technology->id, old('technologies') ?? [])) checked @endif>
+                     @if (in_array( $technology->id, old('technologies') ?? ['technology_ids'])) checked @endif>
                     <label for="technologies-{{$technology->id}}">{{ $technology->label }}</label>
                 </div>
                 @endforeach

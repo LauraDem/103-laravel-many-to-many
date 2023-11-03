@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="col-2">
-                <img src="{{ asset('/storage/' . $project->cover_image) }}" class="img-fluid">
+                <img src="{{ asset('/storage/' . $project->cover_image) }}" class="img-fluid" id="cover_image_preview">
             </div>
 
         </div>
@@ -107,4 +107,17 @@
 </div>
 
 
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+const inputFileElement = document.getElementById('cover_image');
+const coverImagePreview = document.getElementById('cover_image_preview');
+
+
+inputFileElement.addEventListener('change', function(){
+    const [file] = this.files;
+    coverImagePreview.src = URL.createObjectURL(file);
+})
+</script>
 @endsection

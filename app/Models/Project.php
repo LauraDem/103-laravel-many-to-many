@@ -28,7 +28,7 @@ class Project extends Model
 }
 public function getTecBadge() {
 
-    return $this->technology ? " <span class='badge' style='background-color: {$this->technology->color}'>{$this->technology->label}</span>": 'Uncategorized';
+    return $this->technology ? " <span class='badge' style='background-color: {$this->technology->color}'>{$this->technology->label}</span>": '';
 
 }
 

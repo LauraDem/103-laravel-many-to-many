@@ -58,8 +58,11 @@ class ProjectController extends Controller
         $project = new Project();
         $project->fill($data);
         $project->slug = Str::slug($project->name);
+        $project->save();
 
-        
+        // $project->technologies()->attach(1);
+        // $project->technologies()->attach(2);
+        // $project->technologies()->attach(3); 
         
         if (Arr::exists( $data,"technologies")) {
         $project->technologies()->attach($data['technologies']);
@@ -70,7 +73,6 @@ class ProjectController extends Controller
         $project->cover_image = $cover_image_path;
         }
         
-        $project->save();
         
         
         
@@ -133,6 +135,10 @@ class ProjectController extends Controller
             $project->cover_image = $cover_image_path;}
             $project->save();
             
+
+            // $project->technologies()->attach(1);
+            // $project->technologies()->attach(2);
+            // $project->technologies()->attach(3);
             
             if(Arr::exists($data,"technologies")) {
                 $project->technologies()->sync($data['technologies']);
