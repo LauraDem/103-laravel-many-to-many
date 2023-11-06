@@ -28,6 +28,7 @@
             <tr>
               <th scope="row">{{ $project->id }}</th>
               <td>{!! $project->getTypeBadge() !!}</td>
+              {{-- <td>{{ $project->technology->label ?? 'No Tec' }}</td> --}}
               <td>{!! $project->getTecBadge() !!}</td>
               <td>{{ $project->name }}</td>
               <td> {{ $project->slug }} </td>

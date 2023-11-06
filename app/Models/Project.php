@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Technology;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,14 +12,14 @@ class Project extends Model
 
     protected $fillable = ["name","content", "type_id"];
 
-
+ 
 
     public function type() {
         return $this->belongsTo(Type::class);
     }
 
     public function technologies() {
-        return $this->belongsToMany(Technology::class);
+        return $this->belongsToMany(Technology::class, 'project_technology', 'project_id','technology_id');
     }
 
     public function getTypeBadge() {
@@ -28,7 +29,7 @@ class Project extends Model
 }
 public function getTecBadge() {
 
-    return $this->technology ? " <span class='badge' style='background-color: {$this->technology->color}'>{$this->technology->label}</span>": '';
+    return $this->technology ? " <span class='badge' style='background-color: {$this->technology->color}'>{$this->technology->label}</span>": 'Uncategorized';
 
 }
 

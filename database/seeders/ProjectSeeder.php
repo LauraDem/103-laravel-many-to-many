@@ -24,7 +24,7 @@ class ProjectSeeder extends Seeder
     {
         $type_ids=Type::all()->pluck('id')->toArray();
 
-        $technology_ids=Technology::all()->pluck('id')->toArray();
+        $technology_ids=Technology::all()->pluck('id');
 
 
         for ($i = 0; $i < 100; $i++) {

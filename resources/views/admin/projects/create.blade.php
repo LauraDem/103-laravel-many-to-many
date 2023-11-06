@@ -42,13 +42,20 @@
 
 
         <div class="col-12">
-            <label for="cover_image" class="form-label">Cover image</label>
-            <input type="file" name="cover_image" id="cover_image" class="form-control @error('cover_image') is-invalid @enderror" value="{{old('cover_image')}}">
-            @error('cover_image')
-            <div class="invalid-feedback">
-                {{ $message }}
+            <div class="row">
+                <div class="col-8">                
+                    <label for="cover_image" class="form-label">Cover image</label>
+                    <input type="file" name="cover_image" id="cover_image" class="form-control @error('cover_image') is-invalid @enderror" value="{{old('cover_image')}}">
+                    @error('cover_image')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
             </div>
-            @enderror
+            <div class="col-2">
+                <img src="" class="img-fluid" id="cover_image_preview">
+            </div>
         </div>
 
 
@@ -70,11 +77,12 @@
                     <input 
                     type="checkbox" 
                     name="technologies[]" 
-                    id="technologies-{{$technology->id}}" 
+                    id="technology-{{$technology->id}}" 
                     value="{{ $technology->id }}" 
                     class="form-check-control"
-                     @if (in_array( $technology->id, old('technologies') ?? ['technology_ids'])) checked @endif>
-                    <label for="technologies-{{$technology->id}}">{{ $technology->label }}</label>
+                    @if (in_array( $technology->id, old('technologies') ?? [])) checked @endif>
+                    
+                    <label for="technology-{{$technology->id}}">{{ $technology->label }}</label>
                 </div>
                 @endforeach
 
@@ -101,4 +109,22 @@
 </div>
 
 
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+const inputFileElement = document.getElementById('cover_image');
+const coverImagePreview = document.getElementById('cover_image_preview');
+
+if(!coverImagePreview.getAttribute('src')) {
+    coverImagePreview.src = "https://placehold.co/400";
+
+}
+
+
+inputFileElement.addEventListener('change', function(){
+    const [file] = this.files;
+    coverImagePreview.src = URL.createObjectURL(file);
+})
+</script>
 @endsection

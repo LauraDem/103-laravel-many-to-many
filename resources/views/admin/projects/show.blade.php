@@ -13,9 +13,16 @@
     <hr>
     <div class="row g-5 mt-3">
 
+        
+        @if ($project->cover_image)
         <div class="col-3">
             <img src="{{ asset('/storage/' . $project->cover_image) }}" class="img-fluid">
         </div>
+        @else
+        <img class="w-25" src="https://placehold.co/400">  
+        @endif
+       
+
 
         <div class="col-8">
             

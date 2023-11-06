@@ -60,13 +60,14 @@ class ProjectController extends Controller
         $project->slug = Str::slug($project->name);
         $project->save();
 
-        // $project->technologies()->attach(1);
-        // $project->technologies()->attach(2);
-        // $project->technologies()->attach(3); 
+        $project->technologies()->attach(1);
+        $project->technologies()->attach(2);
+        $project->technologies()->attach(3); 
         
-        if (Arr::exists( $data,"technologies")) {
-        $project->technologies()->attach($data['technologies']);
-        }
+        // if (Arr::exists( $data,"technologies")) {
+        // $project->technologies()->attach($data['technologies']);
+        // }
+        
         
         if ($request->hasFile("cover_image")) {
         $cover_image_path = Storage::put('uploads/projects/cover_image', $data['cover_image']);
@@ -160,6 +161,15 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route("admin.projects.index");
     }
+
+    // public function deleteImage(Project $project) {
+    //    Storage::delete($project->cover_image);
+    //    $project->cover_image = null;
+    //    $project->save();
+    //    return redirect()->back();
+
+
+    // }
 
 
 
