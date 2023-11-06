@@ -27,7 +27,7 @@ Route::middleware(['auth', 'verified'])
   ->group(function () {
 
     Route::get('/', [AdminPageController::class, 'index'])->name('home');
-    Route::delete('/projects/{projects}/delete-image', [ProjectController::class, 'deleteImage'])->name('projects.delete-image');
+    Route::delete('/projects/{project}/delete-image', [ProjectController::class, 'deleteImage'])->name('projects.delete-image');
     
     Route::patch('/projects/{project}/publish', [ProjectController::class, 'publish'])->name('projects.publish');
 
