@@ -41,9 +41,6 @@
                   <input type="checkbox" name="published" @if ($project->published) checked @endif>
                   <span class="slider round checkbox-published" data-id="{{ $project->id }}"></span>
                 </label>
-
-
-                
               </form>
               </td>
               <td> {{ $project->slug }} </td>

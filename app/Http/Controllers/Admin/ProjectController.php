@@ -10,9 +10,15 @@ use App\Models\Technology;
 use App\Models\Type;
 use App\Models\Project;
 
+use App\Mail\ProjectPublished;
+
+
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
 
@@ -176,10 +182,16 @@ class ProjectController extends Controller
     public function publish(Project $project, Request $request) {
 
         $data = $request->all();
-        $project->published = !Arr::exists($data,"published") ? 1 : null;
+        $project->published = !Arr::exists($data,"published");
         $project->save();
 
+        $user = Auth::user();
+        Mail::to( $user->email)->send(new ProjectPublished( $project));
+
+
         return redirect()->back();
+
+
 
 }
 }
