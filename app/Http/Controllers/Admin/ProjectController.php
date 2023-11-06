@@ -13,6 +13,7 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 
 
@@ -172,5 +173,13 @@ class ProjectController extends Controller
     // }
 
 
+    public function publish(Project $project, Request $request) {
 
+        $data = $request->all();
+        $project->published = !Arr::exists($data,"published") ? 1 : null;
+        $project->save();
+
+        return redirect()->back();
+
+}
 }

@@ -17,6 +17,7 @@
             <th scope="col">Type</th>
             <th scope="col">Tec</th>
             <th scope="col">Name</th>
+            <th scope="col">Published</th>
             <th scope="col">Slug</th>
             <th scope="col">Created At</th>
             <th scope="col">Updated At</th>
@@ -28,9 +29,23 @@
             <tr>
               <th scope="row">{{ $project->id }}</th>
               <td>{!! $project->getTypeBadge() !!}</td>
-              {{-- <td>{{ $project->technology->label ?? 'No Tec' }}</td> --}}
               <td>{!! $project->getTecBadge() !!}</td>
               <td>{{ $project->name }}</td>
+              <td>
+                <form action="{{ Route('admin.projects.publish', $project) }}" method="POST"
+                  id="form-published-{{ $project->id }}">
+                  @method('PATCH')
+                  @csrf
+
+                <label class="switch">
+                  <input type="checkbox" name="published" @if ($project->published) checked @endif>
+                  <span class="slider round checkbox-published" data-id="{{ $project->id }}"></span>
+                </label>
+
+
+                
+              </form>
+              </td>
               <td> {{ $project->slug }} </td>
               <td>{{ $project->created_at }}</td>
               <td>{{ $project->updated_at }}</td>
@@ -81,7 +96,8 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
 
-        <form method="POST" action={{route('admin.projects.destroy', $project)}}>
+        <form method="POST" action={{route('admin.projects.destroy', $project) }}
+            id="form-published-{{ $project->id }}">
             @method('DELETE')
             @csrf
 
@@ -92,5 +108,20 @@
     </div>
   </div>
   @endforeach
+@endsection
+
+@section('scripts')
+<script>
+  const checkboxesPublished = document.getElementsByClassName('checkbox-published');
+
+  for (checkbox of checkboxesPublished) {
+    checkbox.addEventListener('click', function()  {
+      const idProject = this.getAttribute('data-id');
+      const form = document.getElementById('form-published-' + idProject);
+      form.submit();
+      
+    })
+  }
+</script>
 @endsection
     
