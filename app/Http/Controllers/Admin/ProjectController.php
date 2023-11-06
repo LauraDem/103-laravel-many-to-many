@@ -182,12 +182,12 @@ class ProjectController extends Controller
     public function publish(Project $project, Request $request) {
 
         $data = $request->all();
-        $project->published = !Arr::exists($data,"published");
-        $project->save();
-
+        $project->published = !Arr::exists($data,"published") ? 1 : null;
+        
         $user = Auth::user();
         Mail::to( $user->email)->send(new ProjectPublished( $project));
-
+        
+        $project->save();
 
         return redirect()->back();
 

@@ -48,7 +48,7 @@ class ProjectPublished extends Mailable
         $project = $this->project;
         return new Content(
             view: 'mail.published',
-            with: compact('project'),
+            with: compact('project')
         );
     }
 

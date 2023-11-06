@@ -32,7 +32,7 @@
               <td>{!! $project->getTecBadge() !!}</td>
               <td>{{ $project->name }}</td>
               <td>
-                <form action="{{ Route('admin.projects.publish', $project) }}" method="POST"
+                <form method="POST" action="{{ Route('admin.projects.publish', $project) }}" 
                   id="form-published-{{ $project->id }}">
                   @method('PATCH')
                   @csrf
@@ -93,8 +93,7 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
 
-        <form method="POST" action={{route('admin.projects.destroy', $project) }}
-            id="form-published-{{ $project->id }}">
+        <form method="POST" action={{route('admin.projects.destroy', $project) }}>
             @method('DELETE')
             @csrf
 
